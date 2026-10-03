@@ -209,6 +209,17 @@ Your task is to create a table that calculates the proportion of missing values 
 ```{r}
 ### Explore missingness here ###
 
+#I got this from claude. I have no idea how to do this. I am planning to talk to you in office hours. I do know is.na returns a vector of TRUE and FAlSE values. R treats TRUE as 1 and FALSE as 0. It uses that to take the mean. .x is a stand in variable for the column. across(everything()) makes it go from each column. 
+missing_tbl <- music |>
+  summarise(across(everything(), ~ mean(is.na(.x)))) |>
+  pivot_longer(everything(),
+               names_to = "variable",
+               values_to = "prop_missing") |>
+  arrange(desc(prop_missing))
+
+missing_tbl   # outputs the table
+
+
 ```
 
 
@@ -226,13 +237,13 @@ Based on your research question, will this missingness pose an issue? For the pu
 > For example, let's assume I wanted to explore the following research questions: "Is there a relationship between survival and the class of the passengers? Does this relationship vary by gender?". If the variable indicating whether or not a person survived was missing for 20% or more of the passengers, then this would be a problem. However, if a variable indicating the colour of shirt a passenger was wearing was missing, this probably wouldn't be an issue as that variable is quite irrelevant to my analysis!
 
 Based on this definition, is missingness an issue for your analysis? If so, describe how you will address this (pivoting your research question, for example). If you will continue with a new research question, write it here! **Do not go back to Task 1 and redo the analysis.** ).
+Is there a relationship between the number of weeks an album spends on a billboard and the release year? If so how does this change with artist gender?
+
 
 
 If missingness is not an issue, describe why.
 
 <!-------------------------- Start your work below ---------------------------->
-
-
 
 
 <!----------------------------------------------------------------------------->
@@ -259,6 +270,13 @@ Show the first 6 rows of the tidied data.
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 
+music_data <- music |>
+  mutate(weeks = as.numeric(`Wks on Billboard`)) |>
+  select(weeks, `Artist Gender`, `Release Year`) |>
+  rename(gender = `Artist Gender`,
+         year = `Release Year`)
+
+glimpse(music_data)
 
 
 
@@ -276,8 +294,12 @@ Show the outputted table.
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 
-
-
+music_data |>
+  summarize(
+    mean_weeks = mean(weeks, na.rm = TRUE),
+    min_weeks  = min(weeks, na.rm = TRUE),
+    max_weeks  = max(weeks, na.rm = TRUE)
+  )
 
 ```
 
