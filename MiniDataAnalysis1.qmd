@@ -209,7 +209,7 @@ Your task is to create a table that calculates the proportion of missing values 
 ```{r}
 ### Explore missingness here ###
 
-#I got this from claude. I have no idea how to do this. I am planning to talk to you in office hours. I do know is.na returns a vector of TRUE and FAlSE values. R treats TRUE as 1 and FALSE as 0. It uses that to take the mean. .x is a stand in variable for the column. across(everything()) makes it go from each column. 
+#I got this from claude. I do know is.na returns a vector of TRUE and FAlSE values. R treats TRUE as 1 and FALSE as 0. It uses that to take the mean. .x is a stand in variable for the column. across(everything()) makes it go from each column. 
 missing_tbl <- music |>
   summarise(across(everything(), ~ mean(is.na(.x)))) |>
   pivot_longer(everything(),
