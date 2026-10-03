@@ -75,7 +75,7 @@ Out of the 5 data sets listed above, choose **2** that appeal to you based on th
 
 1: Write 1st choice here: RollingStone500
 
-2: Write 2nd choice here
+2: Write 2nd choice here: Squirrel data
 
 
 <!----------------------------------------------------------------------------->
@@ -104,7 +104,7 @@ music |>
 
 
 music |>
-  mutate(weeks = as.numeric(`Wks on Billboard`))
+  mutate(weeks = as.numeric(`Wks on Billboard`)) |>
   ggplot(aes(`Release Year`, weeks)) +
   geom_point()
   
@@ -112,7 +112,9 @@ music |>
   mutate(weeks = as.numeric(`Wks on Billboard`)) |>
   group_by(`Album Genre`) |>
   summarise(mean_wks = mean(weeks, na.rm = TRUE)) |>
-  arrange(mean_wks)
+  arrange(mean_wks) |>
+  ggplot(aes(mean_wks, `Album Genre`)) +
+  geom_point()
 
 
 ```
@@ -120,18 +122,33 @@ music |>
 
 Write your findings here.
 
+The most significant finding seems to be that Hip-Hop/Rap spend the most weeks on average on the Billboard.
 
 
 
 #### Data Set 2
 ```{r}
-### Explore 3 variables of data set 2 ###
+squirrel <- read_csv("dat/squirrel-data.csv")
+glimpse(squirrel)
 
+squirrel |>
+ggplot(aes(`Park Name`, `Primary Fur Color`)) +
+  geom_point() +
+  coord_flip()
 
+squirrel |>
+  ggplot(aes(`Park Name`, `Highlights in Fur Color`)) +
+  geom_point() +
+  coord_flip()
+
+squirrel |>
+  ggplot(aes(`Primary Fur Color`, `Highlights in Fur Color`)) +
+  geom_point()
 ```
 
 Write your findings here.
 
+Gray squirrels are found in every park.
 
 
 
@@ -149,7 +166,7 @@ It's time to choose only one data set. State the data set that you've chosen, an
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+I have chosen the RollingStone's data set because I love music and i find it the most interesting.
 
 <!----------------------------------------------------------------------------->
 
@@ -164,7 +181,7 @@ Write your research questions **as questions**, and be specific. You can change 
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+Is there a relationship between the number of weeks an album spends on a billboard and the release year? If so how does this change with album genre?
 
 
 <!----------------------------------------------------------------------------->
