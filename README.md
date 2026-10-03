@@ -12,3 +12,5 @@ music_exploritory.R
 
 If you would like to use this repository, work through MiniDataAnalysis.qmd and make sure you have the dat
 folder saved.
+
+Generative AI was only used for exploring missingness as stated in the .qmd file.
